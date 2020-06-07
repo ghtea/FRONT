@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import axios from 'axios';
+import { BrowserRouter, Route } from "react-router-dom";
+
+import About from "./routes/About";
+import Home from "./routes/Home";
+
+import styled, {ThemeProvider } from 'styled-components';
+import {dark, light} from "./styles/themes"
+
+
+
+
 
 function App() {
+  const [cTheme, setTheme] = useState('light'); 
+  const theme = cTheme === 'light' ? light : dark;
+  const toggleTheme = () => setTheme(cTheme === 'light' ? 'dark' : 'light'); 
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    
+    <ThemeProvider theme={light}>
+    
+    <BrowserRouter>
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/about" component={About} />
+    </BrowserRouter>
+    
+    </ThemeProvider>
+    
+    </>
   );
 }
 
